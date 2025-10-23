@@ -3,223 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Email Inbox Agent</title>
+    <title>Email Inbox Agent Dashboard</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
 
-  <body class="bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 min-h-screen">
-    <!-- Navigation Bar -->
-    <nav class="bg-white/80 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50 shadow-sm">
-      <div class="max-w-[1400px] mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-          <!-- Logo -->
-          <div class="flex items-center gap-4">
-            <div class="relative group">
-              <div class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity"></div>
-              <div class="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-3">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"/>
-                </svg>
-              </div>
-            </div>
-            <div>
-              <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Smart Email Inbox
-              </h1>
-              <p class="text-xs text-gray-500 font-medium">AI-Powered Email Analysis</p>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex items-center gap-3">
-            <button
-              onclick="toggleView()"
-              class="group relative px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-xl transition-all duration-300 flex items-center gap-2"
-              id="viewToggle"
-            >
-              <svg class="w-5 h-5 text-gray-700 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-              </svg>
-              <span class="text-sm font-semibold text-gray-700 hidden sm:inline">Grid</span>
-            </button>
-            
-            <button
-              onclick="refreshEmails()"
-              class="group relative px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:shadow-2xl hover:shadow-blue-500/50 text-white rounded-xl transition-all duration-300 flex items-center gap-2 font-semibold transform hover:-translate-y-0.5"
-              id="refreshBtn"
-            >
-              <svg class="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" id="refreshIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-              <span>Refresh</span>
-            </button>
-          </div>
-        </div>
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow p-4">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          📬 Smart Email Inbox
+        </h1>
+        <button
+          onclick="refreshEmails()"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          🔄 Refresh
+        </button>
       </div>
-    </nav>
+    </header>
 
-    <!-- Main Container -->
-    <div class="max-w-[1400px] mx-auto px-6 py-6">
-      <!-- Stats Dashboard -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <!-- High Priority -->
-        <div class="stat-card group relative overflow-hidden bg-white rounded-2xl p-5 border border-gray-200/50 hover:border-red-300 transition-all duration-300 cursor-pointer">
-          <div class="absolute inset-0 bg-gradient-to-br from-red-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div class="relative flex items-start justify-between">
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                <p class="text-xs font-bold text-red-600 uppercase tracking-wider">High Priority</p>
-              </div>
-              <p class="text-3xl font-bold text-gray-900 mb-1" id="highCount">0</p>
-              <p class="text-xs text-gray-500">Urgent emails</p>
-            </div>
-            <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl p-3 shadow-lg shadow-red-500/30">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Medium Priority -->
-        <div class="stat-card group relative overflow-hidden bg-white rounded-2xl p-5 border border-gray-200/50 hover:border-yellow-300 transition-all duration-300 cursor-pointer">
-          <div class="absolute inset-0 bg-gradient-to-br from-yellow-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div class="relative flex items-start justify-between">
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-                <p class="text-xs font-bold text-yellow-600 uppercase tracking-wider">Medium</p>
-              </div>
-              <p class="text-3xl font-bold text-gray-900 mb-1" id="mediumCount">0</p>
-              <p class="text-xs text-gray-500">Moderate priority</p>
-            </div>
-            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl p-3 shadow-lg shadow-yellow-500/30">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Low Priority -->
-        <div class="stat-card group relative overflow-hidden bg-white rounded-2xl p-5 border border-gray-200/50 hover:border-green-300 transition-all duration-300 cursor-pointer">
-          <div class="absolute inset-0 bg-gradient-to-br from-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div class="relative flex items-start justify-between">
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <p class="text-xs font-bold text-green-600 uppercase tracking-wider">Low Priority</p>
-              </div>
-              <p class="text-3xl font-bold text-gray-900 mb-1" id="lowCount">0</p>
-              <p class="text-xs text-gray-500">Can wait</p>
-            </div>
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-3 shadow-lg shadow-green-500/30">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Total Emails -->
-        <div class="stat-card group relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-5 border-0 hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
-          <div class="relative flex items-start justify-between">
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                <p class="text-xs font-bold text-white/90 uppercase tracking-wider">Total Emails</p>
-              </div>
-              <p class="text-3xl font-bold text-white mb-1" id="totalCount">0</p>
-              <p class="text-xs text-white/70">Last 24 hours</p>
-            </div>
-            <div class="bg-white/20 backdrop-blur-xl rounded-xl p-3 shadow-lg">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Filter and Search Section -->
-      <div class="bg-white rounded-2xl shadow-sm border border-gray-200/50 p-5 mb-6">
-        <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-          <!-- Filter Buttons -->
-          <div class="flex flex-wrap gap-2">
-            <button class="filter-btn active" data-filter="all" onclick="filterEmails('all')">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-              <span>All Emails</span>
-            </button>
-            <button class="filter-btn" data-filter="high" onclick="filterEmails('high')">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-              </svg>
-              <span>High Priority</span>
-            </button>
-            <button class="filter-btn" data-filter="medium" onclick="filterEmails('medium')">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span>Medium</span>
-            </button>
-            <button class="filter-btn" data-filter="low" onclick="filterEmails('low')">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span>Low Priority</span>
-            </button>
-          </div>
-
-          <!-- Search Box -->
-          <div class="relative w-full lg:w-96">
-            <input
-              type="text"
-              placeholder="Search emails by subject, sender, or content..."
-              class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
-              id="searchInput"
-              oninput="searchEmails()"
-            />
-            <svg class="w-5 h-5 text-gray-400 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Email Container -->
+    <!-- Main Content -->
+    <main class="flex-grow p-6">
       <div
         id="emailContainer"
-        class="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        class="max-w-6xl mx-auto grid gap-4 sm:grid-cols-1 md:grid-cols-2"
       ></div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200/50 mt-16 py-6">
-      <div class="max-w-[1400px] mx-auto px-6">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2">
-              <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              <span class="text-gray-600 font-medium">System Active</span>
-            </div>
-            <span class="text-gray-400">•</span>
-            <span class="text-gray-500">Last updated: <span id="lastUpdated" class="font-semibold text-gray-700">--</span></span>
-          </div>
-          <div class="text-gray-500">
-            Powered by <span class="font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Technology</span>
-          </div>
-        </div>
-      </div>
+    <footer class="bg-white border-t p-4 text-center text-sm text-gray-500">
+      Built with 💡 Gemini API & Gmail API
     </footer>
 
     <script src="script.js"></script>
