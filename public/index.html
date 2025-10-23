@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Inbox Agent Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow p-4">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          📬 Smart Email Inbox
+        </h1>
+        <button
+          onclick="refreshEmails()"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          🔄 Refresh
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-6">
+      <div
+        id="emailContainer"
+        class="max-w-6xl mx-auto grid gap-4 sm:grid-cols-1 md:grid-cols-2"
+      ></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t p-4 text-center text-sm text-gray-500">
+      Built with 💡 Gemini API & Gmail API
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
