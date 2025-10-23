@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // ✅ Gmail API setup
-const SCOPES = ["[https://www.googleapis.com/auth/gmail.readonly](https://www.googleapis.com/auth/gmail.readonly)"];
+const SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"];
 const TOKEN_PATH = "token.json";
 const CACHE_PATH = "cache.json";
 
@@ -78,7 +78,7 @@ const { code } = req.query;
 const { tokens } = await oAuth2Client.getToken(code);
 oAuth2Client.setCredentials(tokens);
 fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens));
-res.send("✅ Gmail connected! You can close this tab now.");
+res.redirect("http://localhost:3000");
 });
 
 // ✅ Analyze past 24 hours of emails (with batching + caching + retry)
