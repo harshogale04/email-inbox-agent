@@ -22,3 +22,6 @@ client/.env
 # System files
 .DS_Store
 Thumbs.db
+
+gemini.js
+listModels.js
