@@ -57,8 +57,6 @@ email-inbox-agent/
 ├── extension/            # Chrome Extension files (popup.html, popup.js, manifest.json)
 ├── public/               # Static assets served by backend
 ├── server.js             # Main backend entry point
-├── gemini.js             # (ignored) AI logic
-├── listModels.js         # (ignored) Gemini model listing
 ├── package.json          # Dependencies & scripts
 └── .gitignore            # Sensitive files excluded
 ```
