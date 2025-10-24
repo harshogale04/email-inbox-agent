@@ -12,7 +12,7 @@ It helps users quickly understand their daily email activity without opening the
 
 * 🔐 **Secure Gmail Authentication** using OAuth2
 * 📥 **Fetches last 24 hours of emails** automatically
-* 🤖 **Summarizes emails** using Gemini AI
+* 🤖 **Summarizes emails** using AI
 * 💬 **Displays summaries directly in the extension popup**
 * ⚡ **Real-time and local-first** — works instantly after login
 * 🌐 **Built for scalability** — can be extended to include labeling, sentiment analysis, or task extraction
@@ -44,7 +44,7 @@ It helps users quickly understand their daily email activity without opening the
 1. **User installs the Chrome Extension**
 2. **On first use, signs in with their Gmail account**
 3. **Backend (server.js)** handles OAuth and fetches last 24 hours of emails
-4. **AI (Gemini)** processes and summarizes the content
+4. **AI** processes and summarizes the content
 5. **Results displayed instantly** in the extension popup
 
 ---
