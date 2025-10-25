@@ -1,0 +1,21 @@
+{
+  "sender_priority": [
+    {
+      "priority_level": "high",
+      "sender": "Harsh Ogale",
+      "reason": "Uses URGENT in subject and mentions blocking client demo.",
+      "timestamp": "2025-10-25T16:21:13.445Z"
+    },
+    {
+      "harshogale04@gmail.com": "high",
+      "timestamp": "2025-10-25T16:26:13.872Z"
+    }
+  ],
+  "keyword_importance": [
+    {
+      "blocking_client_demo": true,
+      "urgent_keyword": true,
+      "timestamp": "2025-10-25T16:26:13.879Z"
+    }
+  ]
+}

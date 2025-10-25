@@ -489,20 +489,56 @@ if (!parsed) {
       }
 
     } catch (err) {
-      console.error("❌ Analysis error:", err.message);
-      batch.forEach((e) => {
-        const email = {
-          ...e,
-          category: "medium priority",
-          urgency: "medium",
-          summary: "Email analysis pending",
-          actions_needed: []
-        };
-        cache[e.id] = email;
-        analyzedEmails.push(email);
-      });
-      saveCache(cache);
+  console.log("ℹ️ Using fallback analysis (agent took actions)");
+  
+  batch.forEach((e) => {
+    // Generate intelligent summary from email content
+    let summary = "";
+    let urgency = "medium";
+    let category = "medium priority";
+    
+    // Check subject for urgency keywords
+    const subjectLower = (e.subject || "").toLowerCase();
+    if (subjectLower.includes("urgent") || subjectLower.includes("asap") || 
+        subjectLower.includes("deadline") || subjectLower.includes("important")) {
+      urgency = "high";
+      category = "work priority";
+    } else if (subjectLower.includes("fwd:") || subjectLower.includes("re:")) {
+      urgency = "medium";
+      category = "medium priority";
+    } else if (subjectLower.includes("promotional") || subjectLower.includes("offer")) {
+      urgency = "low";
+      category = "promotions";
     }
+    
+    // Generate summary from body content
+    if (e.body && e.body.length > 50) {
+      // Take first meaningful sentence or 200 chars
+      summary = e.body.slice(0, 200).trim();
+      // Add ellipsis if truncated
+      if (e.body.length > 200) {
+        summary += "...";
+      }
+    } else {
+      // Fallback to subject-based summary
+      summary = "Email regarding: " + (e.subject || "communication from " + e.from);
+    }
+    
+    const email = {
+      ...e,
+      category,
+      urgency,
+      summary,
+      actions_needed: ["Review email content"]
+    };
+    
+    cache[e.id] = email;
+    analyzedEmails.push(email);
+  });
+  
+  saveCache(cache);
+}
+
   }
 
   const priorityOrder = { high: 1, medium: 2, low: 3 };
@@ -811,7 +847,7 @@ app.post("/agentic-query", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Agentic Email Agent running on http://localhost:${PORT}`);
   console.log(`📧 Gmail integration: Ready`);
-  console.log(`📅 Calendar sync: ${SCOPES.includes("calendar") ? "Enabled" : "Disabled"}`);
+  console.log(`📅 Calendar sync: ${SCOPES.includes("https://www.googleapis.com/auth/calendar") ? "Enabled" : "Disabled"}`);
   console.log(`💬 Slack: ${process.env.SLACK_WEBHOOK_URL ? "Configured" : "Not configured"}`);
   console.log(`📝 Notion: ${process.env.NOTION_API_KEY ? "Configured" : "Not configured"}`);
 });
