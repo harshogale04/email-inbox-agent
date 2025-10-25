@@ -9,6 +9,16 @@
     {
       "harshogale04@gmail.com": "high",
       "timestamp": "2025-10-25T16:26:13.872Z"
+    },
+    {
+      "priority": "high",
+      "email": "harshogale04@gmail.com",
+      "reason": "Team Lead, sends urgent, blocking tasks.",
+      "timestamp": "2025-10-25T16:35:25.650Z"
+    },
+    {
+      "harshogale04@gmail.com": "High priority work tasks",
+      "timestamp": "2025-10-25T16:41:47.010Z"
     }
   ],
   "keyword_importance": [
@@ -16,6 +26,11 @@
       "blocking_client_demo": true,
       "urgent_keyword": true,
       "timestamp": "2025-10-25T16:26:13.879Z"
+    },
+    {
+      "keywords": "Adobe, Intern, Software Engineer, application",
+      "sender": "Adobe Careers",
+      "timestamp": "2025-10-25T16:41:58.518Z"
     }
   ]
 }

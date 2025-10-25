@@ -512,17 +512,29 @@ if (!parsed) {
     }
     
     // Generate summary from body content
-    if (e.body && e.body.length > 50) {
-      // Take first meaningful sentence or 200 chars
-      summary = e.body.slice(0, 200).trim();
-      // Add ellipsis if truncated
-      if (e.body.length > 200) {
-        summary += "...";
-      }
-    } else {
-      // Fallback to subject-based summary
-      summary = "Email regarding: " + (e.subject || "communication from " + e.from);
-    }
+    // Generate summary from body content
+if (e.body && e.body.length > 50) {
+  // Get first 500 chars
+  let text = e.body.slice(0, 500).trim();
+  
+  // Try to end at a complete sentence
+  const lastPeriod = text.lastIndexOf('.');
+  const lastExclamation = text.lastIndexOf('!');
+  const lastQuestion = text.lastIndexOf('?');
+  const lastSentenceEnd = Math.max(lastPeriod, lastExclamation, lastQuestion);
+  
+  if (lastSentenceEnd > 100) {
+    // Cut at sentence boundary if found
+    summary = text.slice(0, lastSentenceEnd + 1).trim();
+  } else {
+    // Otherwise just use full 500 chars
+    summary = text + "...";
+  }
+} else {
+  // Fallback to subject-based summary
+  summary = "Email regarding: " + (e.subject || "communication from " + e.from);
+}
+
     
     const email = {
       ...e,
@@ -755,7 +767,7 @@ If no event found, set has_event to false.`;
     const eventData = jsonMatch ? JSON.parse(jsonMatch[0]) : JSON.parse(cleaned);
 
     if (!eventData.has_event) {
-      return res.json({ success: false, message: "No meeting information found" });
+      return res.json({ success: false, message: "meeting information found" });
     }
 
     const calendarResult = await addToGoogleCalendar({
